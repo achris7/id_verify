@@ -1,17 +1,21 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// api/create-verification-session.js
+
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      const verificationSession = await stripe.identity.verificationSessions.create({
-        type: 'document',
-      });
-      res.status(200).json({ client_secret: verificationSession.client_secret });
-    } catch (error) {
-      console.error("Error creating Verification Session:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+  try {
+    const verificationSession = await stripe.identity.verificationSessions.create({
+      type: 'document',
+      // You can customize the session parameters here
+    });
+
+    res.status(200).json({
+      client_secret: verificationSession.client_secret,
+      url: verificationSession.url,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 }
