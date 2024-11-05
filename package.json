@@ -4,13 +4,12 @@
     "description": "Stripe Identity Verification Endpoint",
     "main": "index.js",
     "scripts": {
-      "start": "vercel dev",
-      "deploy": "vercel --prod"
+        "start": "vercel dev",
+        "deploy": "vercel --prod"
     },
     "author": "Your Name",
     "license": "ISC",
     "dependencies": {
-      "stripe": "^9.10.0"
+        "stripe": "^9.16.0"
     }
-  }
-  
+}

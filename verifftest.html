@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Veriff Test</title>
+    <script src="https://cdn.veriff.me/sdk/js/1.5/veriff.min.js"></script>
+    <script src="https://cdn.veriff.me/incontext/js/v1/veriff.js"></script>
+</head>
+<body>
+    <div id="veriff-root"></div>
+    <script>
+      const veriff = Veriff({
+        host: 'https://stationapi.veriff.com',
+        apiKey: '357bfc6e-534f-4f18-8b89-f8f9b30f78c2',
+        parentId: 'veriff-root',
+        onSession: function(err, response) {
+          if (err) {
+            console.error("Error creating Veriff session:", err);
+            return;
+          }
+          window.veriffSDK.createVeriffFrame({ url: response.verification.url });
+        }
+      });
+      veriff.setParams({
+        vendorData: 'User specific data'
+      });
+      veriff.mount();
+    </script>
+</body>
+</html>
